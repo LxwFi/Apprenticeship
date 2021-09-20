@@ -1,0 +1,17 @@
+{
+  "name": "jest-work",
+  "version": "1.0.0",
+  "description": "Jest Testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Tym",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.2.0"
+  },
+  "dependencies": {
+    "@types/jest": "^27.0.1"
+  }
+}
