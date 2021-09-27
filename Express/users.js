@@ -6,17 +6,38 @@ web.use(express.json());
 
 const users = {};
 let userid = 0;
+function hasNumber(str) {
+    return str.match(/\d+/g);
+  }
 
 web.post("/users", (req, res) => { 
-    userid += 1;
-    users[userid]=req.body;
+    const {name, age} = req.body;
+    if (/\d/.test(req.body.name) == true|| isNaN(req.body.age)){
+        res.sendStatus(400);
+    }  else if (req.body.age < 1 || req.body.age > 120){
+        res.sendStatus(400);
+    } else if (req.body.name.length < 1 || req.body.name.length > 16) {
+        res.sendStatus(400);
+    } else {
+        userid++;
+        users[userid] = {name, age};
+    }
     console.log(users);
 });
 
-web.post("/test", (req, res) => {
-    console.log("test");
-});
+web.get("/users/:id", (req, res) => {
+    const uid = req.params.id;
+    let lookup = users[uid];
+    if (lookup) {
+        res.json(lookup);
+        return;
+    } else {
+        res.sendStatus(404);
+        return;
+    }
 
+});
 web.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
+
