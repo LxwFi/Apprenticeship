@@ -6,9 +6,6 @@ web.use(express.json());
 
 const users = {};
 let userid = 0;
-function hasNumber(str) {
-    return str.match(/\d+/g);
-  }
 
 web.post("/users", (req, res) => { 
     const {name, age} = req.body;
