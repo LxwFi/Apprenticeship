@@ -1,4 +1,8 @@
 const express = require('express');
+const web = express();
+const port = 3000;
+web.use(express.static('public'));
+
 function coin() {
     let a = "";
     a = Math.floor(Math.random()* (3 - 1) ) + 1;
@@ -8,9 +12,6 @@ function coin() {
         return "Heads";
     }
 }
-const web = express();
-const port = 3000;
-web.use(express.static('public'));
 
 web.get("/now", (req, res) => {
     const now = new Date();
