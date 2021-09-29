@@ -23,7 +23,6 @@ async function sandbox() {
     const drinks = await mcd.createMenu({
         title: "Drinks",
     })
-
 };
 
 module.exports = sandbox;

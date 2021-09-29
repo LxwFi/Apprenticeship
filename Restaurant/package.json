@@ -2,15 +2,17 @@
   "name": "restaurant",
   "version": "1.0.0",
   "description": "",
-  "main": "cinema.js",
+  "main": "webrest.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jest": "^27.0.2",
     "express": "^4.17.1",
+    "jest": "^27.2.3",
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2"
   }
