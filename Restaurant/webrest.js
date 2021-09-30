@@ -34,7 +34,6 @@ web.get("/sandbox", async (req, res) => {
 web.get("/aa", async (req, res) => {
     const company = await Company.findAll();
     res.render("home", { company });
-    console.log(company);
 
 });
 
