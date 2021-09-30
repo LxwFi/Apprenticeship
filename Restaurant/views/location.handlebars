@@ -1,0 +1,16 @@
+<h1>{{ company.name }}</h1>
+<h2>Locations</h2>
+{{#each company.Locations}}
+<article>
+    <label>
+        Name: {{this.name}}
+    </label>
+    <label>
+        Manager: {{this.manager}}
+    </label>
+    <label>
+        Capacity: {{this.capacity}}
+    </label>
+
+</article>
+{{/each}}

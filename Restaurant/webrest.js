@@ -4,13 +4,38 @@ const Location = require('./location');
 const Menu = require("./menu");
 const sandbox = require('./sandbox');
 const web = express();
+const path = require("path");
+const Handlebars = require("handlebars");
+const expressHandlebars = require("express-handlebars");
+const {
+    allowInsecurePrototypeAccess,
+} = require("@handlebars/allow-prototype-access");
+const handlebars = expressHandlebars({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+});
+const setup = require("./setupDb");
+
+
+web.engine("handlebars", handlebars);
+web.set("view engine", "handlebars");
+web.set('views', path.join(__dirname, 'views'));
 web.use(express.urlencoded({ extended: true }));
 web.use(express.json());
+web.use(express.static('public'));
+
 const port = 3000;
 
 //creates sandbox database
 web.get("/sandbox", async (req, res) => {
     await sandbox();
+});
+
+//test for handlebars
+web.get("/aa", async (req, res) => {
+    const company = await Company.findAll();
+    res.render("home", { company });
+    console.log(company);
+
 });
 
 //searches for company by id
@@ -24,7 +49,7 @@ web.get("/companies/:id", async (req, res) => {
 });
 
 //searches for meny by id
-web.get("/menus/:id", (req, res) =>{
+web.get("/menus/:id", async(req, res) =>{
     const menu = await Menu.findByPk(req.params.id);
     if (!menu) {
         return res.sendStatus(400);
@@ -120,9 +145,19 @@ web.delete("/locations/:id", async(req, res) => {
     res.sendStatus(200);
 });
 
+web.get("/companydetails/:id", async (req, res) => {
+    const company = await Company.findByPk(req.params.id, {
+        include: Location,
+    });
+    if (!company) {
+        return res.sendStatus(404);
+    }   console.log(company);
+    res.render("location", { company });
+});
 
-
-
+ 
 web.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
+
+setup();
